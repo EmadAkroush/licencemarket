@@ -1,14 +1,12 @@
 export default defineEventHandler(async (event) => {
     const body = await readBody(event);
-    const { public: { apiBase } } = useRuntimeConfig();
+  
 
    
      
-
+       console.log("body" , body.Number);
     
-        setCookie(event, 'login_token', body, {
-            httpOnly: true,
-            secure: true,
+        setCookie(event, 'cookie', body.Number, {
             maxAge: 60 * 60 * 24 * 7, // 1 week
             path: '/'
         })

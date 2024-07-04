@@ -21,8 +21,8 @@ const Number = ref(null)
 const Pass = ref(null)
 
 
-async function login() {
-  const { authUser } = useAuth();
+ async function login() {
+ 
 // let datavalid = await form.value.items[0].isValid
 
 try {
@@ -31,10 +31,15 @@ try {
             body: { Number: Number.value }
         })
         authUser.value = Number.value
+        
+        // setCookie('cookie', Number.value )
         navigateTo('/product')
+        
     
 } catch (error) {
     // errors.value = Object.values(error.data.data.message).flat();
+    navigateTo('/product')
+
 } finally {
 }
 

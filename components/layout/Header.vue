@@ -27,14 +27,13 @@
           </a>
         </template>
         <template #end>
-          {{ authUser }}
-          <nuxt-link to="auth/login">
-            <div class="flex items-center gap-2">login</div>
+          welcome     {{ authUser }}  
+          <nuxt-link to="auth/login" v-if="!authUser">
+            <Button label="login" @click="exite" />
           </nuxt-link>
-          <div class="flex items-center gap-2" >logout</div>
+          <Button v-else label="logout" @click="exite" />
         </template>
       </Menubar>
-
     </div>
   </div>
 </template>
@@ -42,10 +41,7 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 const { authUser } = useAuth();
-
-
 const router = useRouter();
-
 const items = ref([
   {
     label: "Product",
@@ -69,5 +65,20 @@ const items = ref([
     },
   },
 ]);
+async function exite() {
+  // return navigateTo('auth/login');
 
+  try {
+        const token = await $fetch('/api/auth/logout', {
+
+        })
+        console.log("token" , token);
+        // authUser.value = token;
+    } catch (error) {
+        authUser.value = null;
+    }
+ 
+    location.reload();
+
+}
 </script>
